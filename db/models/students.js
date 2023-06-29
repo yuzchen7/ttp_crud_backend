@@ -28,8 +28,8 @@ const Students = db.define('students', {
     },
 
     imageUrl : {
-        type : DataTypes.STRING,
-        defaultValue : './'
+        type : DataTypes.TEXT,
+        defaultValue : 'https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png'
     },
 
     gpa : {

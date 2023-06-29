@@ -1,10 +1,10 @@
-const Campueses = require('./campuses');
+const Campuses = require('./campuses');
 const Students = require('./students');
 
 // relationship between students and Campueses
-Students.hasOne(Campueses);
-Campueses.hasMany(Students);
+Campuses.hasMany(Students);
+Students.belongsTo(Campuses);
 
 module.exports = {
-    Campueses, Students
+    Campuses, Students
 };
