@@ -1,6 +1,5 @@
 const express = require('express');
 const db = require('./db');
-// const seed = require('./seed');
 const PORT = "8080";
 
 const app = express();
@@ -11,9 +10,11 @@ const syncDB = () => {
 
 const severRun = () => {
     app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+        console.log(`Server running on port ${ PORT }`);
     });
 };
+
+app.use('/api', require('./api'));
 
 severRun();
 syncDB();
