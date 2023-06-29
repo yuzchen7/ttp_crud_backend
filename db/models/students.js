@@ -41,6 +41,12 @@ const Students = db.define('students', {
         }
     }
 
-});
+},
+
+{
+    timestamps : false
+}
+
+);
 
 module.exports = Students;

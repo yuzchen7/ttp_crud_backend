@@ -27,6 +27,12 @@ const Campuses = db.define('campuses', {
         type : DataTypes.TEXT,
     }
     
-});
+}, 
+
+{
+    timestamps : false
+}
+
+);
 
 module.exports = Campuses;
