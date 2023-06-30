@@ -1,8 +1,12 @@
+const cors = require('cors');
+
 const express = require('express');
 const db = require('./db');
 const PORT = "8080";
 
 const app = express();
+
+app.use(cors())
 
 const syncDB = () => {
     db.sync({force: true});
