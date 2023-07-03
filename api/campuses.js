@@ -5,7 +5,7 @@ const db = require('../db');
 
 router.get('/', async (req, res, next) => {
     try {
-      console.log('MESSAGE : allCampuses GETTING ALL CAMPUSES INFO FROM DATABASE')
+      console.log('MESSAGE : allCampuses GETTING ALL CAMPUSES INFO FROM DATABASE');
       const allCampuses = await Campuses.findAll({
           attributes: [
               'id',
@@ -28,6 +28,26 @@ router.get('/', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+});
+
+router.get('/findCampus', async (req, res, next) => {
+  try {
+    console.log('MESSAGE : findCampus GETTING ALL CAMPUSES INFO FROM DATABASE');
+    var query = req.query;
+    const campus = await Campuses.findAll({
+      include : {
+        model : Students
+      },
+      where : {
+        id : query.id
+      }
+    }).catch(error => {
+      console.error(error);
+    });
+    campus ? res.status(200).json(campus) : res.status(404).send("Campus data not found");
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
