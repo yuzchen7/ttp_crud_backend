@@ -62,7 +62,7 @@ router.post('/insertCampus', async (req, res, next) => {
     });
     return res.status(200);
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 });
 
@@ -88,10 +88,26 @@ router.post('/editCampus', async (req, res, next) => {
     ).catch(err => {
       console.error(err);
     });
+    return res.status(200);
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 });
 
+
+// delete campus record
+router.delete('/deleteCampus', (req, res, next) => {
+  try {
+    console.log('MESSAGE : deleteCampus DELETE CAMPUS IN DATABASE');
+    Campuses.destroy({
+      where : {
+        id : req.query.id
+      }
+    });
+    return res.status(200);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
