@@ -30,6 +30,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+
+// find single campus
 router.get('/findCampus', async (req, res, next) => {
   try {
     console.log('MESSAGE : findCampus GETTING ALL CAMPUSES INFO FROM DATABASE');
@@ -50,6 +52,8 @@ router.get('/findCampus', async (req, res, next) => {
   }
 });
 
+
+// insert a campus record
 router.post('/insertCampus', async (req, res, next) => {
   try {
     console.log('MESSAGE : insertCampus INSERT CAMPUS INTO DATABASE');
@@ -61,5 +65,33 @@ router.post('/insertCampus', async (req, res, next) => {
     console.log(err);
   }
 });
+
+
+//edit cmapus record
+router.post('/editCampus', async (req, res, next) => {
+  // console.log(req.body);
+  try {
+    console.log('MESSAGE : editCampus UPDTAE EDIT CAMPUS INTO DATABASE');
+    const editCampus = req.body;
+    Campuses.update( 
+      {
+        name : editCampus.name,
+        address : editCampus.address,
+        imageUrl : editCampus.imageUrl,
+        description : editCampus.description
+      },
+      {
+        where : {
+          id : editCampus.id
+        }
+      }
+    ).catch(err => {
+      console.error(err);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 
 module.exports = router;
