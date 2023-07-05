@@ -63,7 +63,7 @@ router.post('/insertStudent', async (req, res, next) => {
     try {
         console.log('MESSAGE : insertStudent INSERT STUDENT INFO FROM DATABASE');
         const insertData = req.body;
-        Students.create(insertData).catch(error => {
+        await Students.create(insertData).catch(error => {
             next(error);
         })
         res.sendStatus(200);
@@ -77,7 +77,7 @@ router.post('/editStudent', async (req, res, next) => {
     try {
         console.log('MESSAGE : editStudent EDIT STUDENT INFO FROM DATABASE');
         const editData = req.body;
-        Students.update(
+        await Students.update(
             {
                 firstName : editData.firstName,
                 LastName : editData.lastName,
@@ -95,6 +95,24 @@ router.post('/editStudent', async (req, res, next) => {
             error => {console.error(error);
             next(error);
         })
+        res.sendStatus(200);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+router.delete('/deleteStudent', async (req, res, next) => {
+    try {
+        console.log('MESSAGE : deleteStudent DElETE STUDENT INFO FROM DATABASE');
+        await Students.destroy({
+            where : {
+                id : req.query.id
+            }
+        }).catch(error => {
+            console.error(error);
+            next(error);
+        });
         res.sendStatus(200);
     } catch (err) {
         next(err);
