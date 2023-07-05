@@ -73,4 +73,33 @@ router.post('/insertStudent', async (req, res, next) => {
 });
 
 
+router.post('/editStudent', async (req, res, next) => {
+    try {
+        console.log('MESSAGE : editStudent EDIT STUDENT INFO FROM DATABASE');
+        const editData = req.body;
+        Students.update(
+            {
+                firstName : editData.firstName,
+                LastName : editData.lastName,
+                email : editData.email,
+                imageUrl : editData.imageUrl,
+                gpa : editData.gpa,
+                campusId : editData.campusId
+            },
+            {
+                where : {
+                    id : editData.id
+                }
+            }
+        ).catch(
+            error => {console.error(error);
+            next(error);
+        })
+        res.sendStatus(200);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
 module.exports = router;
