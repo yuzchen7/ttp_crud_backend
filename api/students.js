@@ -17,7 +17,6 @@ router.get('/', async (req, res, next) => {
 router.post('/enrollCampusStuent', async (req, res, next) => {
     try {
         console.log('MESSAGE : transCampusStuent UPDATE STUDENT CAMPUS INFO FROM DATABASE');
-        console.log('data come : ', req.body);
         await Students.update(
             {
                 campusId : req.body.campusId
@@ -28,7 +27,7 @@ router.post('/enrollCampusStuent', async (req, res, next) => {
                 }
             }
         ).catch(err => {
-            console.error(err);
+            next(err);
         });
         res.status(200);
     } catch (err) {
@@ -51,14 +50,27 @@ router.get('/findStudent', async (req, res, next) => {
                 }
             }
         ).catch(error => {
-            console.error(error);
+            next(error);
         });
-        console.log(singleStudent);
         singleStudent ? res.status(200).json(singleStudent) : res.status(404).send("Student Data not found");
     } catch (err) {
         next(err);
     }
 });
   
+
+router.post('/insertStudent', async (req, res, next) => {
+    try {
+        console.log('MESSAGE : insertStudent INSERT STUDENT INFO FROM DATABASE');
+        const insertData = req.body;
+        Students.create(insertData).catch(error => {
+            next(error);
+        })
+        res.sendStatus(200);
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;
