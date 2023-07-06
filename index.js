@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const syncDB = () => {
-    db.sync({force: true});
+    db.sync();
 };
 
 const severRun = () => {
